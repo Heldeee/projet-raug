@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>White Blood Cell Game</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <script id="vertexshader" type="x-shader/x-vertex">
+        uniform float u_time;
+        uniform float u_frequency;
+        varying vec2 vUv;
+        
+        void main() {
+            vUv = uv;
+            vec3 newPosition = position;
+            float displacement = sin(newPosition.x * u_frequency + u_time) * 
+                                 sin(newPosition.y * u_frequency + u_time) * 
+                                 sin(newPosition.z * u_frequency + u_time) * 0.15;
+            
+            newPosition += normal * displacement;
+            
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+        }
+    </script>
+
+    <script id="fragmentshader" type="x-shader/x-fragment">
+        uniform float u_red;
+        uniform float u_green;
+        uniform float u_blue;
+        uniform sampler2D u_texture;
+        varying vec2 vUv;
+        
+        void main() {
+            vec4 texColor = texture2D(u_texture, vUv);
+            gl_FragColor = vec4(texColor.rgb * vec3(u_red, u_green, u_blue), texColor.a);
+        }
+    </script>
+
+    <script id="vertexshader2" type="x-shader/x-vertex">
+        uniform float u_time;
+        uniform float u_frequency;
+        varying vec2 vUv;
+        
+        void main() {
+            vUv = uv;
+            vec3 newPosition = position;
+            float displacement = sin(newPosition.x * u_frequency + u_time) * 
+                                 sin(newPosition.y * u_frequency + u_time) * 
+                                 sin(newPosition.z * u_frequency + u_time) * 0.15;
+            
+            newPosition += normal * displacement;
+            
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+        }
+    </script>
+
+    <script id="fragmentshader2" type="x-shader/x-fragment">
+        uniform float u_red;
+        uniform float u_green;
+        uniform float u_blue;
+        uniform sampler2D u_texture;
+        varying vec2 vUv;
+        
+        void main() {
+            vec4 texColor = texture2D(u_texture, vUv);
+            gl_FragColor = vec4(texColor.rgb * vec3(u_red, u_green, u_blue), texColor.a);
+        }
+    </script>
+
+    <script type="module" src="/game.js"></script>
+</body>
+
+</html>
