@@ -35,21 +35,30 @@ function init() {
 
     // Lighting
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
+    //scene.add(ambientLight);
+
     const pointLight = new THREE.PointLight(0xffffff, 1);
     pointLight.position.set(5, 5, 5);
+    pointLight.castShadow = true; // Enable shadows for the point light
+    pointLight.shadow.mapSize.width = 1024; // Shadow map resolution
+    pointLight.shadow.mapSize.height = 1024;
+    pointLight.shadow.camera.near = 0.5; // Shadow camera near plane
+    pointLight.shadow.camera.far = 500; // Shadow camera far plane
     scene.add(pointLight);
 
     // Uniforms for the shader
     uniforms = {
         u_time: { type: 'f', value: 0.0 },
         u_frequency: { type: 'f', value: 5 },
-        u_red: { type: 'f', value: 1.0 },
-        u_green: { type: 'f', value: 1.0 },
-        u_blue: { type: 'f', value: 1.0 }
+        u_red: { type: 'f', value: 255 / 255 },
+        u_green: { type: 'f', value: 20 / 255 },
+        u_blue: { type: 'f', value: 60 / 255 }
     };
 
+    const redColor = new THREE.Color(1, 0, 0);
+
     // White Blood Cell
+    const bloodTexture = new THREE.DataTexture(new Uint8Array([220, 20, 60]), 1, 1, THREE.RGBFormat);
     const geometry = new THREE.IcosahedronGeometry(1, 15);
     const material = new THREE.ShaderMaterial({
         uniforms: { ...uniforms, u_texture: { value: cellTexture } },
@@ -57,11 +66,25 @@ function init() {
         fragmentShader: document.getElementById('fragmentshader').textContent,
     });
     whiteBloodCell = new THREE.Mesh(geometry, material);
-    whiteBloodCell.position.x = -8; // Offset to the left
+    whiteBloodCell.position.x = -8;
     scene.add(whiteBloodCell);
 
     // Ground
-    const bouleGeometry = new THREE.IcosahedronGeometry(50, 50);
+    const cylinder_geometry = new THREE.CylinderGeometry(10, 10, 40, 32);
+    const cylinder_material = new THREE.MeshBasicMaterial({ map: vesselTexture, color: redColor, side: THREE.DoubleSide });
+    const cylinder = new THREE.Mesh(cylinder_geometry, cylinder_material);
+    cylinder.rotation.z = Math.PI * 0.5;
+    cylinder.position.z = 5;
+    scene.add(cylinder);
+
+    const plane_geometry = new THREE.PlaneGeometry(20, 20);
+    const plane_material = new THREE.MeshBasicMaterial({ map: vesselTexture, color: redColor });
+    const plane = new THREE.Mesh(plane_geometry, plane_material);
+    plane.position.y = -5;
+    plane.rotation.x = Math.PI * 0.5;
+    scene.add(plane);
+
+    /*const bouleGeometry = new THREE.IcosahedronGeometry(50, 50);
     const vesselMaterial = new THREE.ShaderMaterial({
         uniforms: { ...vesselUniforms, u_texture: { value: vesselTexture } },
         vertexShader: document.getElementById('vertexshader').textContent,
@@ -70,26 +93,26 @@ function init() {
     ground = new THREE.Mesh(bouleGeometry, vesselMaterial);
     ground.position.y = -53.5;
     ground.rotation.x = Math.PI * 0.5;
-    scene.add(ground);
+    scene.add(ground);```
 
     // Background
     const backgroundGeometry = new THREE.PlaneGeometry(window.innerWidth / 25, window.innerWidth / 25);
     background = new THREE.Mesh(backgroundGeometry, vesselMaterial);
     background.position.z = -10;
-    scene.add(background);
+    scene.add(background);*/
 
     // GUI
-    const gui = new GUI();
-    gui.add(uniforms.u_frequency, 'value', 0, 20).name('Frequency');
-    gui.add(uniforms.u_red, 'value', 0, 1).name('Red');
-    gui.add(uniforms.u_green, 'value', 0, 1).name('Green');
-    gui.add(uniforms.u_blue, 'value', 0, 1).name('Blue');
+    //const gui = new GUI();
+    //gui.add(uniforms.u_frequency, 'value', 0, 20).name('Frequency');
+    //gui.add(uniforms.u_red, 'value', 0, 1).name('Red');
+    //gui.add(uniforms.u_green, 'value', 0, 1).name('Green');
+    //gui.add(uniforms.u_blue, 'value', 0, 1).name('Blue');
 
     // Health Bar and Score
     const healthBarGeometry = new THREE.PlaneGeometry(2, 0.2);
     const healthBarMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
     healthBar = new THREE.Mesh(healthBarGeometry, healthBarMaterial);
-    healthBar.position.set(-8, 4, 3);
+    healthBar.position.set(0, 4, 0);
     scene.add(healthBar);
 
     // Load font using fetch
@@ -103,7 +126,7 @@ function init() {
                 height: 0.1,
             });
             scoreText = new THREE.Mesh(textGeometry, new THREE.MeshBasicMaterial({ color: 0xffffff }));
-            scoreText.position.set(-9, 3, 3);
+            scoreText.position.set(0, 3, 0);
             scene.add(scoreText);
         })
         .catch(error => {
@@ -128,8 +151,8 @@ function spawnVirus() {
         ]), 1, 1, THREE.RGBFormat);
     const virusMaterial = new THREE.ShaderMaterial({
         uniforms: { ...uniforms, u_texture: { value: virusTexture } },
-        vertexShader: document.getElementById('vertexshader').textContent,
-        fragmentShader: document.getElementById('fragmentshader').textContent,
+        vertexShader: document.getElementById('vertexshader2').textContent,
+        fragmentShader: document.getElementById('fragmentshader2').textContent,
     });
 
     const virus = new THREE.Mesh(virusGeometry, virusMaterial);
@@ -226,13 +249,13 @@ function animate() {
     whiteBloodCell.rotation.x += 0.01;
     whiteBloodCell.rotation.y += 0.01;
 
-    ground.rotation.y += 0.003;
+    /**ground.rotation.y += 0.003;
 
     // Move the background
     background.position.x -= 0.05;
     if (background.position.x < -window.innerWidth / 25) {
         background.position.x = 0;
-    }
+    }**/
 
     updateGameObjects();
 
