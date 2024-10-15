@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organ Viewer</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        #organs-list {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            cursor: pointer;
+            padding: 5px;
+            margin: 5px 0;
+            background: #f0f0f0;
+            border-radius: 5px;
+        }
+
+        li:hover {
+            background: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="organs-list">
+        <ul>
+            <li onclick="loadModels(['models/heart_m.glb'])">Heart</li>
+            <li onclick="loadModels(['models/eye_l_m.glb', 'models/eye_r_m.glb'])">Eyes</li>
+            <li onclick="loadModels(['models/lung.glb'])">Lung</li>
+        </ul>
+    </div>
+    <script type="module">
+        import { loadModels } from './script.js';
+        window.loadModels = loadModels;
+    </script>
+</body>
+
+</html>
