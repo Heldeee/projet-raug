@@ -1,16 +1,10 @@
 # Augmented Reality Project
 
-## Part 1 - Game realistion
+## Part 1 - App realistion
 
-### The game
+### The app
 
-Parkour game where a white blood cell is flooding in a blood vessel trying to kill all the virus using the enzymes.
-
-Use mouse to go up and down.
-
-Healthbar going down ? You will die.
-
-Try taking up the enzymes do maximize your score, enjoy !
+3D modelisation of the human body and its organs. The user can hover over the body to see the organs and click on them to get more information.
 
 ### Installation
 
@@ -20,7 +14,7 @@ Try taking up the enzymes do maximize your score, enjoy !
 
 ### Framwork
 
-`Vue.js` + `Three.js`
+`Next.js` + `Three.js`
 
 ## Part 2 - Augmented Reality Integration
 

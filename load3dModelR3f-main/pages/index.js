@@ -30,6 +30,8 @@ const Index = () => {
     ureter: true,
   });
 
+  const [hoveredOrgan, setHoveredOrgan] = useState(null);
+
   const controls = useControls({
     Heart: {
       value: visibility.heart,
@@ -110,9 +112,14 @@ const Index = () => {
         <Environment preset="studio" />
         <PerspectiveCamera makeDefault position={[2, 3.9, 2]} />
         <OrbitControls />
-        <Body position={[0, 0, 0]} visibility={visibility} />
+        <Body position={[0, 0.8, 0]} visibility={visibility} setHoveredOrgan={setHoveredOrgan} />
         <ContactShadows />
       </Canvas>
+      {hoveredOrgan && (
+        <div style={{ position: 'absolute', top: 10, left: 10, background: 'white', padding: '5px', borderRadius: '5px' }}>
+          {hoveredOrgan}
+        </div>
+      )}
     </div>
   );
 };
