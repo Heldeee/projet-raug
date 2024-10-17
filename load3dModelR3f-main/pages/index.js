@@ -28,6 +28,21 @@ const Index = () => {
     blood_vasculature: true,
     urinary_bladder: true,
     ureter: true,
+    larynx: true,
+    lymph_node: true,
+    bronchus: true,
+    palatine_tonsil: true,
+    spinal_cord: true,
+    spleen: true,
+    thymus: true,
+    trachea: true,
+    vertebrae: true,
+    rectus_femoris: true,
+    cricoarytenoid: true,
+    cystic_duct: true,
+    gallbladder: true,
+    urethra: true,
+    hyoid: true,
   });
 
   const [hoveredOrgan, setHoveredOrgan] = useState(null);
@@ -96,6 +111,66 @@ const Index = () => {
     Ureter: {
       value: visibility.ureter,
       onChange: (v) => setVisibility((prev) => ({ ...prev, ureter: v })),
+    },
+    Larynx: {
+      value: visibility.larynx,
+      onChange: (v) => setVisibility((prev) => ({ ...prev, larynx: v })),
+    },
+    Lymph_Node: {
+      value: visibility.lymph_node,
+      onChange: (v) => setVisibility((prev) => ({ ...prev, lymph_node: v })),
+    },
+    Bronchus: {
+      value: visibility.bronchus,
+      onChange: (v) => setVisibility((prev) => ({ ...prev, bronchus: v })),
+    },
+    Palatine_Tonsil: {
+      value: visibility.palatine_tonsil,
+      onChange: (v) => setVisibility((prev) => ({ ...prev, palatine_tonsil: v })),
+    },
+    Spinal_cord: {
+      value: visibility.spinal_cord,
+      onChange: (v) => setVisibility((prev) => ({ ...prev, spinal_cord: v })),
+    },
+    Spleen: {
+      value: visibility.spleen,
+      onChange: (v) => setVisibility((prev) => ({ ...prev, spleen: v })),
+    },
+    Thymus: {
+      value: visibility.thymus,
+      onChange: (v) => setVisibility((prev) => ({ ...prev, thymus: v })),
+    },
+    Trachea: {
+      value: visibility.trachea,
+      onChange: (v) => setVisibility((prev) => ({ ...prev, trachea: v })),
+    },
+    Vertebrae: {
+      value: visibility.vertebrae,
+      onChange: (v) => setVisibility((prev) => ({ ...prev, vertebrae: v })),
+    },
+    Rectus_Femoris: {
+      value: visibility.rectus_femoris,
+      onChange: (v) => setVisibility((prev) => ({ ...prev, rectus_femoris: v })),
+    },
+    Cricoarytenoid: {
+      value: visibility.cricoarytenoid,
+      onChange: (v) => setVisibility((prev) => ({ ...prev, cricoarytenoid: v })),
+    },
+    Cystic_Duct: {
+      value: visibility.cystic_duct,
+      onChange: (v) => setVisibility((prev) => ({ ...prev, cystic_duct: v })),
+    },
+    Gallbladder: {
+      value: visibility.gallbladder,
+      onChange: (v) => setVisibility((prev) => ({ ...prev, gallbladder: v })),
+    },
+    Urethra: {
+      value: visibility.urethra,
+      onChange: (v) => setVisibility((prev) => ({ ...prev, urethra: v })),
+    },
+    Hyoid: {
+      value: visibility.hyoid,
+      onChange: (v) => setVisibility((prev) => ({ ...prev, hyoid: v })),
     },
   });
 
