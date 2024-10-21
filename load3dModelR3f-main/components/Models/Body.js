@@ -8,11 +8,18 @@ import { organDescriptions } from '../../pages/organDescriptions';
 
 export function Body({ visibility, setHoveredOrgan, ...props }) {
   const { nodes, materials } = useGLTF('/3d-vh-m-united-v1.glb')
-  const handlePointerOver = (organName) => {
+  const handlePointerOver = (organName, event) => {
+    if (!visibility[organName.toLowerCase()]) {
+      return; // If the organ is not visible, do nothing
+    }
+
+    event.stopPropagation(); // Stop event from propagating to other objects
+
     const formattedName = organName.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
-    const description = organDescriptions[organName.toLowerCase()]; // Get the organ description
-    setHoveredOrgan({ name: formattedName, description }); // Set both the name and description
+    const description = organDescriptions[organName.toLowerCase()];
+    setHoveredOrgan({ name: formattedName, description });
   };
+
   return (
     <group {...props} dispose={null}>
       {visibility.skin && (
@@ -22,13 +29,13 @@ export function Body({ visibility, setHoveredOrgan, ...props }) {
             receiveShadow
             geometry={nodes.VH_M_skin.geometry}
             material={materials.pasted__Skin_Mat}
-            onPointerOver={() => handlePointerOver('Skin')}
+            onPointerOver={(e) => handlePointerOver('Skin', e)}
           />
         </group>
       )}
       {visibility.spinal_cord && (
         <group visible={visibility.spinal_cord}
-          onPointerOver={() => handlePointerOver('Spinal_cord')}
+          onPointerOver={(e) => handlePointerOver('Spinal_cord', e)}
         >
           <mesh
             castShadow
@@ -214,7 +221,7 @@ export function Body({ visibility, setHoveredOrgan, ...props }) {
       )}
       {visibility.brain && (
         <group visible={visibility.brain}
-          onPointerOver={() => handlePointerOver('Brain')}
+          onPointerOver={(e) => handlePointerOver('Brain', e)}
         >
           <mesh
             castShadow
@@ -1918,7 +1925,7 @@ export function Body({ visibility, setHoveredOrgan, ...props }) {
       )}
       {visibility.eye && (
         <group visible={visibility.eye}
-          onPointerOver={() => handlePointerOver('Eye')}
+          onPointerOver={(e) => handlePointerOver('Eye', e)}
         >
           <mesh
             castShadow
