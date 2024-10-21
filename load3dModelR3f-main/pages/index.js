@@ -191,8 +191,20 @@ const Index = () => {
         <ContactShadows />
       </Canvas>
       {hoveredOrgan && (
-        <div style={{ position: 'absolute', top: 10, left: 10, background: 'white', padding: '5px', borderRadius: '5px' }}>
-          {hoveredOrgan}
+        <div
+          style={{
+            position: 'absolute',
+            top: 10,
+            left: 10,
+            background: 'white',
+            padding: '10px',
+            borderRadius: '8px',
+            maxWidth: '300px', // Optional, to restrict width
+            boxShadow: '0 2px 10px rgba(0,0,0,0.1)' // Adds a little shadow for better visibility
+          }}
+        >
+          <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 'bold' }}>{hoveredOrgan.name}</h3>
+          <p style={{ margin: '5px 0 0 0', fontSize: '14px', color: '#555' }}>{hoveredOrgan.description}</p>
         </div>
       )}
     </div>
