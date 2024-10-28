@@ -30,7 +30,7 @@ const Index = () => {
   return (
     <div className="h-[100vh] flex">
       <Leva />
-      <aside style={{ width: '250px', padding: '10px', background: '#f0f0f0', boxShadow: '2px 0 5px rgba(0,0,0,0.1)' }}>
+      <aside style={{ width: '250px', padding: '10px', background: '#f0f0f0', boxShadow: '2px 0 5px rgba(0,0,0,0.1)', overflowY: 'auto' }}>
         <h2 style={{ fontSize: '20px', fontWeight: 'bold' }}>Body Parts</h2>
         {Object.keys(bodyParts).map(category => (
           <div key={category}>
@@ -88,13 +88,15 @@ const Index = () => {
         <div style={{
           position: 'absolute',
           top: 10,
-          left: 10,
+          left: 1000,
           background: 'white',
           padding: '10px',
           borderRadius: '8px',
           maxWidth: '90vw',
           width: '400px',
           boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+          overflowY: 'auto',
+          maxHeight: '90vh'
         }}>
           <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 'bold' }}>{hoveredOrgan.name}</h3>
           <p style={{ margin: 0, fontSize: '14px', color: '#555', textAlign: 'justify' }}>
