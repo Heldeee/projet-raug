@@ -20,7 +20,7 @@ export function Body({ visibility, setHoveredOrgan, ...props }) {
     // Traverse all children of the group and apply glow effect to each child
     event.object.parent.traverse((child) => {
       if (child.isMesh) {
-        child.material = child.material.clone(); // Clone the material to avoid affecting globally
+        child.material = child.material.clone();
         child.material.emissive = new THREE.Color(0xffff00); // Set glow color (yellow)
       }
     });
