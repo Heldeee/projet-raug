@@ -6,13 +6,15 @@ import {
   PerspectiveCamera,
 } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
-import { Leva } from "leva";
+import { Leva, useControls } from "leva";
 import { Body } from "../components/Models/Body";
 import setCubeTextureBackground from "../components/Models/TexturedCube"; // Import the function
+import * as THREE from "three";
 
 const bodyParts = {
-  Head: ["heart", "brain", "eye"],
-  Torso: ["lung", "liver", "kidney", "pancreas", "skin"],
+  Skin: ["skin"],
+  Head: ["brain", "eye"],
+  Torso: ["lung", "liver", "kidney", "pancreas", "heart"],
   Abdomen: ["sm_intestine", "lg_intestine", "urinary_bladder", "ureter"],
   Limbs: ["legs", "pelvis"],
   Neck: ["larynx", "trachea"],
@@ -25,13 +27,37 @@ const Index = () => {
   );
 
   const [hoveredOrgan, setHoveredOrgan] = useState(null);
-  const [activeCategory, setActiveCategory] = useState("Head"); // Default active category
+  const [activeCategory, setActiveCategory] = useState("Skin"); // Default active category
+  const [cameraPosition, setCameraPosition] = useState([0, 1, 3]);
+  const [isCameraRotationEnabled, setIsCameraRotationEnabled] = useState(true);
+  const [isBackgroundEnabled, setIsBackgroundEnabled] = useState(true);
+
+  const resetCamera = () => {
+    setCameraPosition([0, 1, 3]);
+    console.log("Camera reset");
+  };
+
+  var isRotating = isCameraRotationEnabled;
+  var setBackground = isBackgroundEnabled;
+
+  const toggleCameraRotation = () => {
+    setIsCameraRotationEnabled(prev => !prev);
+  }
+
+  const toggleBackground = () => {
+    setIsBackgroundEnabled(prev => !prev);
+  }
+
+  const toggleVisibility = (part) => {
+    setVisibility((prev) => ({ ...prev, [part]: !prev[part] }));
+  }
 
   // Custom component to set the background texture
   const Background = () => {
     const { scene } = useThree();
     useEffect(() => {
-      setCubeTextureBackground(scene);
+      if (isBackgroundEnabled)
+        setCubeTextureBackground(scene);
     }, [scene]);
     return null;
   };
@@ -57,54 +83,71 @@ const Index = () => {
 
   return (
     <div className="h-[100vh] w-[100vw] relative">
+      <Leva
+        fill
+        hideCopyButton
+      />
       <Canvas style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} shadows>
         <Background /> {/* Set the background texture */}
         <color attach="background" args={["#eee"]} />
         <Environment preset="studio" />
-        <PerspectiveCamera makeDefault position={[2, 3.9, 2]} />
-        <OrbitControls />
+        <PerspectiveCamera makeDefault position={cameraPosition} />
+        <OrbitControls
+          target={[0, 1, 0]}
+          enablePan={false}
+          autoRotate={isRotating}
+          autoRotateSpeed={5}
+          zoomToCursor={true}
+        />
         {lights}
         <Body
-          position={[0, 0.8, 0]}
+          position={[0, 1, 0]}
           visibility={visibility}
           setHoveredOrgan={setHoveredOrgan}
         />
         <ContactShadows />
       </Canvas>
 
-      <aside style={{ position: 'absolute', top: 0, left: 0, width: '250px', padding: '10px', background: '#f0f0f0', boxShadow: '2px 0 5px rgba(0,0,0,0.1)', overflowY: 'auto', height: '100vh' }}>
-        <h2 style={{ fontSize: '20px', fontWeight: 'bold' }}>Body Parts</h2>
-        {Object.keys(bodyParts).map(category => (
-          <div key={category}>
-            <h3
-              onClick={() => setActiveCategory(category)}
-              style={{
-                cursor: 'pointer',
-                padding: '5px',
-                background: activeCategory === category ? '#ddd' : 'transparent',
-              }}
-            >
-              {category}
-            </h3>
-            {activeCategory === category && (
-              <ul style={{ paddingLeft: '10px' }}>
-                {bodyParts[category].map(part => (
-                  <li key={part}>
-                    <label>
-                      <input
-                        type="checkbox"
-                        checked={visibility[part]}
-                        onChange={(e) => setVisibility((prev) => ({ ...prev, [part]: e.target.checked }))}
-                      />
-                      {part}
-                    </label>
-                  </li>
-                ))}
-              </ul>
-            )}
+      <aside style={{ position: 'absolute', top: 0, left: 0, width: '400px', padding: '10px', background: '#f0f0f0', boxShadow: '2px 0 5px rgba(0,0,0,0.1)', overflowY: 'auto', height: '100vh' }}>
+        {Object.entries(bodyParts).map(([category, parts]) => (
+          <div key={category} style={{ marginBottom: '20px' }}>
+            <h3>{category}</h3>
+            <hr style={{ marginBottom: '5px' }} />
+            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+              {parts.map(part => (
+                <div
+                  key={part}
+                  onClick={() => toggleVisibility(part)}
+                  style={{
+                    width: 'calc(50% - 10px)',
+                    margin: '5px',
+                    padding: '10px',
+                    cursor: 'pointer',
+                    backgroundColor: visibility[part] ? 'lightgreen' : 'lightcoral',
+                    textAlign: 'center',
+                    borderRadius: '5px',
+                  }}
+                >
+                  {part}
+                </div>
+              ))}
+            </div>
           </div>
         ))}
+        <button
+          style={{ marginTop: '10px', padding: '10px', fontSize: '16px', cursor: 'pointer', color: 'white', background: 'blue', border: 'none', borderRadius: '5px' }}
+          onClick={toggleCameraRotation}
+        >
+          {isCameraRotationEnabled ? 'Disable' : 'Enable'} Camera Rotation
+        </button>
+        <button
+          style={{ marginTop: '10px', padding: '10px', fontSize: '16px', cursor: 'pointer', color: 'white', background: 'blue', border: 'none', borderRadius: '5px' }}
+          onClick={toggleBackground}
+        >
+          {setBackground ? 'Remove' : 'Add'} Background
+        </button>
       </aside>
+
 
       {hoveredOrgan && (
         <div style={{
