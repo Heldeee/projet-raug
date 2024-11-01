@@ -8,7 +8,10 @@ import { organDescriptions } from '../../utils/organDescriptions';
 import * as THREE from 'three';
 
 export function Body({ visibility, setHoveredOrgan, ...props }) {
-  const { nodes, materials } = useGLTF('/3d-vh-m-united-v1.glb')
+  const modelPath = process.env.NODE_ENV === 'production'
+    ? 'projet_raug/3d-vh-m-united-v1.glb'
+    : '/3d-vh-m-united-v1.glb';
+  const { nodes, materials } = useGLTF(modelPath);
 
   const handlePointerOver = (organName, event) => {
     if (!visibility[organName.toLowerCase()]) {
