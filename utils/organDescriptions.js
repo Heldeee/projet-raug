@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const organDescriptions = {
     heart: `
     The heart is a muscular organ found in most animals. This organ pumps blood through the blood vessels. Heart and blood vessels together make the circulatory system. The pumped blood carries oxygen and nutrients to the tissue, while carrying metabolic waste such as carbon dioxide to the lungs. In humans, the heart is approximately the size of a closed fist and is located between the lungs, in the middle compartment of the chest, called the mediastinum.
@@ -170,4 +172,4 @@ The external urethral sphincter is a striated muscle that allows voluntary contr
 Unlike other bones, the hyoid is only distantly articulated to other bones by muscles or ligaments. It is the only bone in the human body that is not connected to any other bones. The hyoid is anchored by muscles from the anterior, posterior and inferior directions, and aids in tongue movement and swallowing. The hyoid bone provides attachment to the muscles of the floor of the mouth and the tongue above, the larynx below, and the epiglottis and pharynx behind.`
 };
 
-
+export default organDescriptions;
