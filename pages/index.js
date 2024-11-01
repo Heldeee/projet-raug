@@ -60,24 +60,22 @@ const Index = () => {
     )
   );
 
+
   const [hoveredOrgan, setHoveredOrgan] = useState(null);
-  const [activeCategory, setActiveCategory] = useState("Skin"); // Default active category
   const [cameraPosition, setCameraPosition] = useState([0, 1, 3]);
   const [isCameraRotationEnabled, setIsCameraRotationEnabled] = useState(true);
   const [isBackgroundEnabled, setIsBackgroundEnabled] = useState(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
-  const resetCamera = () => {
-    setCameraPosition([0, 1, 3]);
-    console.log("Camera reset");
-  };
-
 
   var isRotating = isCameraRotationEnabled;
   var setBackground = isBackgroundEnabled;
 
   const toggleSidebar = () => {
     setIsSidebarOpen(prev => !prev);
+  };
+
+  const resetCamera = () => {
+    setCameraPosition([0, 1, 3]);
   };
 
   const toggleCameraRotation = () => {
@@ -204,22 +202,6 @@ const Index = () => {
             ))}
           </div>
         ))}
-        <button
-          style={{
-            marginTop: '10px',
-            padding: '10px',
-            fontSize: '16px',
-            cursor: 'pointer',
-            color: 'white',
-            background: 'blue',
-            border: 'none',
-            borderRadius: '5px',
-            width: '100%', // Make button take full width
-          }}
-          onClick={toggleCameraRotation}
-        >
-          {isCameraRotationEnabled ? 'Disable' : 'Enable'} Camera Rotation
-        </button>
       </aside>
 
       {/* Toggle Sidebar Button */}
@@ -236,11 +218,54 @@ const Index = () => {
           background: 'darkgray',
           border: 'none',
           borderRadius: '5px',
+          userSelect: 'none',
           transition: 'left 0.3s ease' // Smooth transition for button
         }}
+        draggable={false}
       >
         {isSidebarOpen ? 'Hide' : 'Show'} Sidebar
       </button>
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '20px', // Distance from the bottom of the screen
+          left: '50%', // Center horizontally
+          transform: 'translateX(-50%)', // Adjust for exact centering
+          display: 'flex', // Use flexbox for horizontal alignment
+          gap: '10px', // Space between buttons
+        }}
+      >
+        <button
+          style={{
+            padding: '10px',
+            fontSize: '16px',
+            cursor: 'pointer',
+            color: 'white',
+            background: 'blue',
+            border: 'none',
+            borderRadius: '5px',
+          }}
+          onClick={toggleCameraRotation}
+        >
+          {isCameraRotationEnabled ? 'Disable' : 'Enable'} Camera Rotation
+        </button>
+        <button
+          style={{
+            padding: '10px',
+            fontSize: '16px',
+            cursor: 'pointer',
+            color: 'white',
+            background: 'green',
+            border: 'none',
+            borderRadius: '5px',
+          }}
+          onClick={resetCamera}
+          hidden={!isCameraRotationEnabled}
+        >
+          Reset Camera Position
+        </button>
+      </div>
+
 
       {
         hoveredOrgan && (
