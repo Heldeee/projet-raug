@@ -58,7 +58,9 @@ L'objectif de ce projet est de créer une expérience éducative et interactive 
 
 ## Sources d'Inspiration
 - Documentation officielle de [THREE.js](https://threejs.org/docs/index.html#manual/en/introduction/Introduction)
-- Tutoriels en ligne et exemples de [GitHub THREE.js](https://github.com/mrdoob/three.js/tree/dev/examples)
+- Texture Cube [TextureCube](https://threejs.org/docs/#api/en/textures/CubeTexture)
+- TeaPot [TeaPot](https://threejs.org/examples/#webgl_geometry_teapot)
+- [Interactive Cubes](https://threejs.org/examples/#webgl_interactive_cubes) 
 - Articles et ressources sur l'anatomie humaine
 - Wikipedia
 
