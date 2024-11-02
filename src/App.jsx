@@ -7,8 +7,8 @@ import {
 } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
 import { Leva, useControls } from "leva";
-import { Body } from "../components/Models/Body";
-import setCubeTextureBackground from "../components/Models/TexturedCube"; // Import the function
+import { Body } from "./components/Models/Body";
+import setCubeTextureBackground from "./components/Models/TexturedCube"; // Import the function
 import * as THREE from "three";
 
 const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);

@@ -1,26 +1,8 @@
-# Augmented Reality Project
+# React + Vite
 
-## Part 1 - App realistion
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-### The app
+Currently, two official plugins are available:
 
-3D modelisation of the human body and its organs. The user can hover over the body to see the organs and click on them to get more information.
-
-#### Example used
-
-- `https://threejs.org/examples/#webgl_geometry_teapot`
-- `https://threejs.org/examples/#webgl_camera_cinematic`
-
-### Installation
-
-```npm install```
-
-```npm run dev```
-
-### Framwork
-
-`Next.js` + `Three.js`
-
-## Part 2 - Augmented Reality Integration
-
-Coming soon...
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
