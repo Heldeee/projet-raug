@@ -10,7 +10,7 @@ import { Leva, useControls } from "leva";
 import { Body } from "./components/Models/Body";
 import setCubeTextureBackground from "./components/Models/TexturedCube"; // Import the function
 import * as THREE from "three";
-//import './App.css';
+import './App.css';
 
 const capitalize = (str) => str.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
 
