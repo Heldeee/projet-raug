@@ -1,8 +1,67 @@
-# React + Vite
+# Projet RAUG - Human Body Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description du Projet
+Le **Human Body Explorer** est une application interactive en 3D qui permet aux utilisateurs d'explorer le corps humain et ses organes. En utilisant des modèles 3D, les utilisateurs peuvent survoler le corps pour voir les différents organes et cliquer sur chacun d'eux pour obtenir plus d'informations.
 
-Currently, two official plugins are available:
+## Tester l'Application en Ligne
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[Human Body Explorer](https://heldeee.github.io/projet-raug/)
+
+## But
+L'objectif de ce projet est de créer une expérience éducative et interactive pour les utilisateurs, les aidant à mieux comprendre la anatomie humaine à travers des visualisations 3D.
+
+## Mode d'Emploi
+1. **Clonez le dépôt** :
+   ```bash
+   git clone https://github.com/Heldeee/projet-raug.git
+   ```
+
+2. **Naviguez dans le dossier du projet** :
+    ```bash
+    cd projet-raug
+    ```
+
+3. **Installez les dépendances** :
+    ```bash
+    npm install
+    ```
+
+4. **Lancez l'application** :
+    ```bash
+    npm start
+    ```
+
+
+## Visualisation
+
+![](https://github.com/Heldeee/projet-raug/blob/main/humanbodyexplorer.gif?raw=true)
+
+## Membre du groupe
+
+- leo.devin
+- phu-hung.dang
+
+### Repartitions des rôles
+
+- leo.devin:
+    - Création de la structure de l'application
+    - UX/UI Design
+    - Deploiement de l'application sur GitHub Pages
+    - Documentation
+
+- phu-hung.dang:
+    - Recherche et intégration des modèles 3D
+    - Implémentation de la logique de l'application
+    - Documentation
+
+## Sources d'inspiration
+
+## Sources d'Inspiration
+- Documentation officielle de [THREE.js](https://threejs.org/docs/index.html#manual/en/introduction/Introduction)
+- Tutoriels en ligne et exemples de [GitHub THREE.js](https://github.com/mrdoob/three.js/tree/dev/examples)
+- Articles et ressources sur l'anatomie humaine
+- Wikipedia
+
+## License
+
+Ce projet est sous licence MIT - voir le fichier LICENSE
