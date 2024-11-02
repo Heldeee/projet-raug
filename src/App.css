@@ -1,42 +1,279 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+  /* Prevent horizontal scroll */
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+  /* Prevent container overflow */
+}
+
+.canvas-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Title Styling */
+.title {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  background: rgba(123, 199, 123, 0.8);
+  text-align: center;
+  font-family: Arial;
+  color: white;
+  z-index: 10;
+  user-select: none;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  position: fixed;
+  top: 0;
+  width: 30%;
+  padding: 10px;
+  background: #f0f0f0;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  height: 100vh;
+  transition: left 0.3s ease;
+  z-index: 20;
+}
+
+.sidebar-open {
+  left: 0;
+}
+
+.sidebar-closed {
+  left: -500px;
+}
+
+.category {
+  margin-bottom: 20px;
+}
+
+.category-title {
+  user-select: none;
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #555;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.category-divider {
+  margin-bottom: 1px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.subcategory {
+  margin-bottom: 1px;
+}
+
+.subcategory-title {
+  font-size: 14px;
+  margin-bottom: 8px;
+  user-select: none;
+  color: #555;
+}
+
+.parts-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.part-button {
+  width: calc(33% - 8px);
+  margin: 5px 0;
+  padding: 8px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 5px;
+  user-select: none;
+  transition: background-color 0.2s ease;
+}
+
+.part-button-visible {
+  background-color: rgb(107, 221, 107);
+}
+
+.part-button-hidden {
+  background-color: lightcoral;
+}
+
+/* Toggle Sidebar Button */
+.toggle-sidebar-btn {
+  position: fixed;
+  top: 20px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  color: white;
+  background: darkgray;
+  border: none;
+  border-radius: 5px;
+  user-select: none;
+  transition: left 0.3s ease;
+  z-index: 30;
+}
+
+.toggle-sidebar-btn-open {
+  left: 510px;
+}
+
+.toggle-sidebar-btn-closed {
+  left: 10px;
+}
+
+/* Controls */
+.controls-container {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 20;
+}
+
+.control-btn {
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.rotation-btn {
+  background: blue;
+}
+
+.reset-btn {
+  background: green;
+}
+
+/* Organ Info */
+.organ-info {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 90vw;
+  width: 20%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  max-height: 80%;
+  z-index: 20;
+}
+
+.organ-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}
+
+.organ-description {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+  text-align: justify;
+}
+
+/* Scrollbars */
+.sidebar::-webkit-scrollbar,
+.organ-info::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar::-webkit-scrollbar-track,
+.organ-info::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb,
+.organ-info::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover,
+.organ-info::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* For Firefox */
+.sidebar,
+.organ-info {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 20%;
   }
-  to {
-    transform: rotate(360deg);
+
+  .toggle-sidebar-btn {
+    left: 260px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .category-title,
+  .subcategory-title,
+  .part-button {
+    font-size: 12px;
+  }
+
+  .organ-info {
+    width: 80%;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+@media (max-width: 20%) {
+  .sidebar {
+    width: 100%;
+    position: static;
+    height: auto;
   }
-}
 
-.card {
-  padding: 2em;
-}
+  .canvas-container {
+    height: 80vh;
+  }
 
-.read-the-docs {
-  color: #888;
+  .title {
+    font-size: 16px;
+  }
+
+  .controls-container {
+    bottom: 10px;
+  }
+
+  .organ-info {
+    font-size: 12px;
+  }
 }

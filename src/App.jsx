@@ -10,8 +10,9 @@ import { Leva, useControls } from "leva";
 import { Body } from "./components/Models/Body";
 import setCubeTextureBackground from "./components/Models/TexturedCube"; // Import the function
 import * as THREE from "three";
+import './App.css';
 
-const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+const capitalize = (str) => str.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
 
 const bodyParts = {
   Skin: {
@@ -120,20 +121,17 @@ const Index = () => {
   ), []);
 
   return (
-    <div className="h-[100vh] w-[100vw] relative">
-      <Leva
-        fill
-        hideCopyButton
-      />
-      <Canvas style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} shadows>
-        <Background /> {/* Set the background texture */}
+    <div className="container">
+      <Leva fill hideCopyButton />
+      <Canvas className="canvas-container" shadows>
+        <Background />
         <color attach="background" args={["#eee"]} />
         <Environment preset="studio" />
         <PerspectiveCamera makeDefault position={cameraPosition} />
         <OrbitControls
           target={[0, 1, 0]}
           enablePan={true}
-          autoRotate={isRotating}
+          autoRotate={isCameraRotationEnabled}
           autoRotateSpeed={5}
           zoomToCursor={true}
         />
@@ -145,54 +143,23 @@ const Index = () => {
         />
         <ContactShadows />
       </Canvas>
-      <h1 style={{ position: 'absolute', top: 0, left: 0, width: '100%', padding: '10px', background: 'rgba(255,255,255,0.8)', textAlign: 'center', 'fontFamily': 'Arial' }}>
-        Human Body Explorer
-      </h1>
-      <aside
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: isSidebarOpen ? 0 : '-500px',
-          width: '500px',
-          padding: '10px',
-          background: '#f0f0f0',
-          boxShadow: '2px 0 5px rgba(0,0,0,0.1)',
-          overflowY: 'auto',
-          height: '100vh'
-        }}>
+
+      <h1 className="title">Human Body Explorer</h1>
+
+      <aside className={`sidebar sidebar-minimal ${isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
         {Object.entries(bodyParts).map(([category, subCategories]) => (
-          <div key={category} style={{ marginBottom: '20px' }}>
-            <h3 style={{
-              userSelect: 'none'
-            }}
-              draggable={false}
-            >
-              {category}
-            </h3>
-            <hr style={{ marginBottom: '5px' }} />
+          <div key={category} className="category">
+            <h3 className="category-title">{category}</h3>
+            <hr className="category-divider" />
             {Object.entries(subCategories).map(([subCategory, parts]) => (
-              <div
-                key={subCategory}
-                style={{ marginBottom: '15px' }}
-                draggable={false}
-              >
-                <h4 style={{ fontSize: '14px', marginBottom: '8px', userSelect: 'none' }}>{subCategory}</h4>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+              <div key={subCategory} className="subcategory">
+                <h4 className="subcategory-title">{subCategory}</h4>
+                <div className="parts-grid">
                   {parts.map((part) => (
                     <div
                       key={part}
                       onClick={() => toggleVisibility(part)}
-                      style={{
-                        width: 'calc(33% - 10px)', // Adjust width to fit 3 boxes per row
-                        margin: '5px 0',
-                        padding: '8px',
-                        cursor: 'pointer',
-                        backgroundColor: visibility[part] ? 'lightgreen' : 'lightcoral',
-                        textAlign: 'center',
-                        borderRadius: '5px',
-                        userSelect: 'none'
-                      }}
-                      draggable={false}
+                      className={`part-button ${visibility[part] ? 'part-button-visible' : 'part-button-hidden'}`}
                     >
                       {capitalize(part)}
                     </div>
@@ -204,61 +171,22 @@ const Index = () => {
         ))}
       </aside>
 
-      {/* Toggle Sidebar Button */}
       <button
         onClick={toggleSidebar}
-        style={{
-          position: 'absolute',
-          top: '20px',
-          left: isSidebarOpen ? '510px' : '10px',
-          padding: '10px',
-          fontSize: '16px',
-          cursor: 'pointer',
-          color: 'white',
-          background: 'darkgray',
-          border: 'none',
-          borderRadius: '5px',
-          userSelect: 'none',
-          transition: 'left 0.3s ease' // Smooth transition for button
-        }}
-        draggable={false}
+        className={`toggle-sidebar-btn ${isSidebarOpen ? 'toggle-sidebar-btn-open' : 'toggle-sidebar-btn-closed'}`}
       >
         {isSidebarOpen ? 'Hide' : 'Show'} Sidebar
       </button>
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '20px', // Distance from the bottom of the screen
-          left: '50%', // Center horizontally
-          transform: 'translateX(-50%)', // Adjust for exact centering
-          display: 'flex', // Use flexbox for horizontal alignment
-          gap: '10px', // Space between buttons
-        }}
-      >
+
+      <div className="controls-container">
         <button
-          style={{
-            padding: '10px',
-            fontSize: '16px',
-            cursor: 'pointer',
-            color: 'white',
-            background: 'blue',
-            border: 'none',
-            borderRadius: '5px',
-          }}
+          className="control-btn rotation-btn"
           onClick={toggleCameraRotation}
         >
           {isCameraRotationEnabled ? 'Disable' : 'Enable'} Camera Rotation
         </button>
         <button
-          style={{
-            padding: '10px',
-            fontSize: '16px',
-            cursor: 'pointer',
-            color: 'white',
-            background: 'green',
-            border: 'none',
-            borderRadius: '5px',
-          }}
+          className="control-btn reset-btn"
           onClick={resetCamera}
           hidden={!isCameraRotationEnabled}
         >
@@ -266,30 +194,13 @@ const Index = () => {
         </button>
       </div>
 
-
-      {
-        hoveredOrgan && (
-          <div style={{
-            position: 'absolute',
-            top: 10,
-            right: 10,
-            background: 'white',
-            padding: '10px',
-            borderRadius: '8px',
-            maxWidth: '90vw',
-            width: '400px',
-            boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-            overflowY: 'auto',
-            maxHeight: '80vh'
-          }}>
-            <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 'bold' }}>{hoveredOrgan?.name}</h3>
-            <p style={{ margin: 0, fontSize: '14px', color: '#555', textAlign: 'justify' }}>
-              {hoveredOrgan?.description}
-            </p>
-          </div>
-        )
-      }
-    </div >
+      {hoveredOrgan && (
+        <div className="organ-info">
+          <h3 className="organ-title">{hoveredOrgan?.name}</h3>
+          <p className="organ-description">{hoveredOrgan?.description}</p>
+        </div>
+      )}
+    </div>
   );
 };
 
