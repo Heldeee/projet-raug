@@ -23,7 +23,7 @@ The operations of individual brain cells are now understood in considerable deta
 
 This article compares the properties of brains across the entire range of animal species, with the greatest attention to vertebrates. It deals with the human brain insofar as it shares the properties of other brains. The ways in which the human brain differs from other brains are covered in the human brain article. Several topics that might be covered here are instead covered there because much more can be said about them in a human context. The most important that are covered in the human brain article are brain disease and the effects of brain damage.
     `,
-    eye: `An eye is a sensory organ that allows an organism to perceive visual information. It detects light and converts it into electro-chemical impulses in neurons (neurones). It is part of an organism's visual system.
+    eyes: `An eye is a sensory organ that allows an organism to perceive visual information. It detects light and converts it into electro-chemical impulses in neurons (neurones). It is part of an organism's visual system.
 
 In higher organisms, the eye is a complex optical system that collects light from the surrounding environment, regulates its intensity through a diaphragm, focuses it through an adjustable assembly of lenses to form an image, converts this image into a set of electrical signals, and transmits these signals to the brain through neural pathways that connect the eye via the optic nerve to the visual cortex and other areas of the brain.
 

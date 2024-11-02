@@ -1950,7 +1950,7 @@ export function Body({ visibility, setHoveredOrgan, ...props }) {
             )}
             {visibility.eyes && (
                 <group visible={visibility.eye}
-                    onPointerOver={(e) => handlePointerOver('Eye', e)}
+                    onPointerOver={(e) => handlePointerOver('Eyes', e)}
                     onPointerOut={handlePointerOut}
                 >
                     <mesh
