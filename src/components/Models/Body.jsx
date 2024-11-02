@@ -8,7 +8,7 @@ import { organDescriptions } from '../utils/organDescriptions';
 import * as THREE from 'three';
 
 export function Body({ visibility, setHoveredOrgan, ...props }) {
-    const modelPath = import.meta.env.PROD
+    const modelPath = process.env.NODE_ENV === 'production'
         ? '/projet-raug/3d-vh-m-united-v1.glb'
         : '/3d-vh-m-united-v1.glb';
     const { nodes, materials } = useGLTF(modelPath);
