@@ -8,9 +8,8 @@ import {
 import { Canvas, useThree } from "@react-three/fiber";
 import { Leva, useControls } from "leva";
 import { Body } from "./components/Models/Body";
-import { XR, ARButton, VRButton } from '@react-three/xr';
+import setCubeTextureBackground from "./components/Models/TexturedCube"; // Import the function
 import * as THREE from "three";
-import { useRef } from 'react';
 import './App.css';
 
 const capitalize = (str) => str.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
@@ -62,6 +61,7 @@ const Index = () => {
     )
   );
 
+
   const [hoveredOrgan, setHoveredOrgan] = useState(null);
   const [cameraPosition, setCameraPosition] = useState([0, 1, 3]);
   const [isCameraRotationEnabled, setIsCameraRotationEnabled] = useState(true);
@@ -91,6 +91,16 @@ const Index = () => {
     setVisibility((prev) => ({ ...prev, [part]: !prev[part] }));
   }
 
+  // Custom component to set the background texture
+  const Background = () => {
+    const { scene } = useThree();
+    useEffect(() => {
+      if (isBackgroundEnabled)
+        setCubeTextureBackground(scene);
+    }, [scene]);
+    return null;
+  };
+
   // Memoize the lights to prevent re-renders
   const lights = useMemo(() => (
     <>
@@ -113,26 +123,25 @@ const Index = () => {
   return (
     <div className="container">
       <Leva fill hideCopyButton />
-      <ARButton />
       <Canvas className="canvas-container" shadows>
-        <XR referenceSpace="local-floor">
-          <PerspectiveCamera makeDefault position={cameraPosition} />
-          <OrbitControls
-            target={[0, 1, -2]}
-            enablePan={true}
-            autoRotate={false}
-            autoRotateSpeed={5}
-            zoomToCursor={true}
-          />
-          {lights}
-          <Body
-            position={[0, 1, -2]}
-            visibility={visibility}
-            setHoveredOrgan={setHoveredOrgan}
-
-          />
-          <ContactShadows />
-        </XR>
+        <Background />
+        <color attach="background" args={["#eee"]} />
+        <Environment preset="studio" />
+        <PerspectiveCamera makeDefault position={cameraPosition} />
+        <OrbitControls
+          target={[0, 1, 0]}
+          enablePan={true}
+          autoRotate={isCameraRotationEnabled}
+          autoRotateSpeed={5}
+          zoomToCursor={true}
+        />
+        {lights}
+        <Body
+          position={[0, 1, 0]}
+          visibility={visibility}
+          setHoveredOrgan={setHoveredOrgan}
+        />
+        <ContactShadows />
       </Canvas>
 
       <h1 className="title">Human Body Explorer</h1>
@@ -161,14 +170,31 @@ const Index = () => {
           </div>
         ))}
       </aside>
+
       <button
         onClick={toggleSidebar}
         className={`toggle-sidebar-btn ${isSidebarOpen ? 'toggle-sidebar-btn-open' : 'toggle-sidebar-btn-closed'}`}
       >
-        {isSidebarOpen ? 'x' : 'Menu'}
+        {isSidebarOpen ? 'Hide' : 'Show'} Sidebar
       </button>
 
-      {!hoveredOrgan && (
+      <div className="controls-container">
+        <button
+          className="control-btn rotation-btn"
+          onClick={toggleCameraRotation}
+        >
+          {isCameraRotationEnabled ? 'Disable' : 'Enable'} Camera Rotation
+        </button>
+        <button
+          className="control-btn reset-btn"
+          onClick={resetCamera}
+          hidden={!isCameraRotationEnabled}
+        >
+          Reset Camera Position
+        </button>
+      </div>
+
+      {hoveredOrgan && (
         <div className="organ-info">
           <h3 className="organ-title">{hoveredOrgan?.name}</h3>
           <p className="organ-description">{hoveredOrgan?.description}</p>

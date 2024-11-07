@@ -55,7 +55,6 @@ body {
   height: 100vh;
   transition: left 0.3s ease;
   z-index: 20;
-  border-radius: 20px;
 }
 
 .sidebar-open {
@@ -135,7 +134,7 @@ body {
 }
 
 .toggle-sidebar-btn-open {
-  left: 23%;
+  left: 510px;
 }
 
 .toggle-sidebar-btn-closed {
@@ -233,32 +232,11 @@ body {
 /* Responsive Styles */
 @media (max-width: 768px) {
   .sidebar {
-    top: 70%;
-    bottom: 0px;
-    width: 100%;
-    border-radius: 20px;
-    transition: bottom 0.3s ease;
-  }
-
-  .sidebar-open {
-    bottom: 0;
-  }
-
-  .sidebar-closed {
-    bottom: -100%;
+    width: 20%;
   }
 
   .toggle-sidebar-btn {
-    bottom: 1%;
-  }
-
-  .toggle-sidebar-btn-open {
-    bottom: 70%;
-  }
-
-  .toggle-sidebar-btn-closed {
-    left: 1%;
-    bottom: 1%;
+    left: 260px;
   }
 
   .title {
@@ -298,7 +276,4 @@ body {
   .organ-info {
     font-size: 12px;
   }
-
-
-
 }
