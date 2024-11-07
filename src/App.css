@@ -55,6 +55,7 @@ body {
   height: 100vh;
   transition: left 0.3s ease;
   z-index: 20;
+  border-radius: 20px;
 }
 
 .sidebar-open {
@@ -134,7 +135,7 @@ body {
 }
 
 .toggle-sidebar-btn-open {
-  left: 510px;
+  left: 23%;
 }
 
 .toggle-sidebar-btn-closed {
@@ -232,11 +233,32 @@ body {
 /* Responsive Styles */
 @media (max-width: 768px) {
   .sidebar {
-    width: 20%;
+    top: 70%;
+    bottom: 0px;
+    width: 100%;
+    border-radius: 20px;
+    transition: bottom 0.3s ease;
+  }
+
+  .sidebar-open {
+    bottom: 0;
+  }
+
+  .sidebar-closed {
+    bottom: -100%;
   }
 
   .toggle-sidebar-btn {
-    left: 260px;
+    bottom: 1%;
+  }
+
+  .toggle-sidebar-btn-open {
+    bottom: 70%;
+  }
+
+  .toggle-sidebar-btn-closed {
+    left: 1%;
+    bottom: 1%;
   }
 
   .title {
@@ -277,32 +299,6 @@ body {
     font-size: 12px;
   }
 
-  .ar-vr-buttons {
-    position: fixed !important;
-    /* Ensures fixed position */
-    top: 200px !important;
-    /* Adjusts the vertical position */
-    right: 20px !important;
-    /* Aligns to the right */
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 10px !important;
-    z-index: 1000;
-    /* Ensures they appear above other elements */
-  }
-
-  .ar-vr-buttons button {
-    padding: 10px 15px !important;
-    background-color: #4CAF50 !important;
-    color: white !important;
-    border: none !important;
-    border-radius: 5px !important;
-    cursor: pointer !important;
-  }
-
-  .ar-vr-buttons button:hover {
-    background-color: #45a049 !important;
-  }
 
 
 }

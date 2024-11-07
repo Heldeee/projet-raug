@@ -9,7 +9,6 @@ import { Canvas, useThree } from "@react-three/fiber";
 import { Leva, useControls } from "leva";
 import { Body } from "./components/Models/Body";
 import { XR, ARButton, VRButton } from '@react-three/xr';
-import setCubeTextureBackground from "./components/Models/TexturedCube"; // Import the function
 import * as THREE from "three";
 import { useRef } from 'react';
 import './App.css';
@@ -114,10 +113,7 @@ const Index = () => {
   return (
     <div className="container">
       <Leva fill hideCopyButton />
-      <div className="ar-vr-buttons">
-        <ARButton />
-      </div>
-
+      <ARButton />
       <Canvas className="canvas-container" shadows>
         <XR referenceSpace="local-floor">
           <PerspectiveCamera makeDefault position={cameraPosition} />
@@ -165,29 +161,12 @@ const Index = () => {
           </div>
         ))}
       </aside>
-
       <button
         onClick={toggleSidebar}
         className={`toggle-sidebar-btn ${isSidebarOpen ? 'toggle-sidebar-btn-open' : 'toggle-sidebar-btn-closed'}`}
       >
-        {isSidebarOpen ? 'Hide' : 'Show'} Sidebar
+        {isSidebarOpen ? 'x' : 'Menu'}
       </button>
-
-      <div className="controls-container">
-        <button
-          className="control-btn rotation-btn"
-          onClick={toggleCameraRotation}
-        >
-          {isCameraRotationEnabled ? 'Disable' : 'Enable'} Camera Rotation
-        </button>
-        <button
-          className="control-btn reset-btn"
-          onClick={resetCamera}
-          hidden={!isCameraRotationEnabled}
-        >
-          Reset Camera Position
-        </button>
-      </div>
 
       {!hoveredOrgan && (
         <div className="organ-info">
