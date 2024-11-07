@@ -276,4 +276,33 @@ body {
   .organ-info {
     font-size: 12px;
   }
+
+  .ar-vr-buttons {
+    position: fixed !important;
+    /* Ensures fixed position */
+    top: 200px !important;
+    /* Adjusts the vertical position */
+    right: 20px !important;
+    /* Aligns to the right */
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    z-index: 1000;
+    /* Ensures they appear above other elements */
+  }
+
+  .ar-vr-buttons button {
+    padding: 10px 15px !important;
+    background-color: #4CAF50 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+  }
+
+  .ar-vr-buttons button:hover {
+    background-color: #45a049 !important;
+  }
+
+
 }
